@@ -19,9 +19,33 @@
 
 Остальное думаю найдете сами.
 
-Также хочу заметить, что некоторые endpoint-ы дублируются на сайтах и возвращают одно и тоже
+Также хочу заметить, что некоторые endpoint-ы дублируются на сайтах и возвращают одно и тоже.
+
+При желании дополнить, можете кинуть pull-request.
 
 ## Документация
+
+```
+// Список констант
+site_id
+ + animelib - 5
+ + mangalib - 1
+ + ranobelib - 3
+ + yaoilib - 2
+```
+### Авторизация
+`POST https://lib.social/login` - войти
+
+```
+{
+  "_token": "", // берем с главной QuerySelector("meta[name=_token]")
+  "login": "", // почта
+  "password": "", // пароль
+  "remember": "on"
+}
+```
+
+*В итоге: Нам кидают ответ, берете location хедер и все, задача онли почистить и токен у вас*
 
 ### Форум
 
@@ -283,4 +307,177 @@
     "title_status_id": 1
   }
 ]
+```
+------
+`GET https://mangalib.me/manga-short-info?id=55901&slug=chainsaw-man-2` - получение информации по id/slug
+
+*Примечание: вы можете добавить параметр type, если знаете тип материала.*
+
+Type может быть:
++ anime
++ manga
+
+```
+{
+  "first_chapter": {
+    "volume": 12,
+    "number": "98"
+  },
+  "id": 55901,
+  "name": "Chainsaw Man 2",
+  "rus_name": "Человек-бензопила 2",
+  "eng_name": "Chainsaw Man 2",
+  "slug": "chainsaw-man-2",
+  "releaseDate": "2022",
+  "summary": "Прямое продолжение первой части.",
+  "cover": "Gm9UeJU3bTpz",
+  "caution": 2,
+  "rate": 18948,
+  "rate_avg": "4.89",
+  "authors": [
+    {
+      "name": "Tatsuki Fujimoto",
+      "slug": "tatsuki-fujimoto",
+      "id": 93024,
+      "pivot": {
+        "manga_id": 55901,
+        "author_id": 93024
+      }
+    }
+  ],
+  "artists": [
+    {
+      "name": "Tatsuki Fujimoto",
+      "slug": "tatsuki-fujimoto",
+      "id": 93024,
+      "pivot": {
+        "manga_id": 55901,
+        "author_id": 93024
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": 34,
+      "name": "боевик",
+      "slug": "action",
+      "dsc": "Работа, содержащая насилие, драки, схватки и быстрыми сменами действия.",
+      "created_at": "2016-03-05T11:28:35.000000Z",
+      "updated_at": "2016-03-30T22:36:49.000000Z",
+      "pivot": {
+        "media_id": 55901,
+        "genre_id": 34,
+        "media_type": "manga"
+      }
+    },
+    ...
+  ],
+  "tags": [
+    {
+      "id": 151,
+      "name": "Демоны",
+      "slug": "150-demony",
+      "site_id": 1,
+      "created_at": "2020-01-06T07:36:12.000000Z",
+      "updated_at": "2020-01-06T07:36:12.000000Z",
+      "pivot": {
+        "media_id": 55901,
+        "tag_id": 151,
+        "media_type": "manga"
+      }
+    },
+    ...
+  ],
+  "status": {
+    "id": 1,
+    "label": "Продолжается",
+    "created_at": "2016-03-05 16:35:36",
+    "updated_at": "0000-00-00 00:00:00",
+    "type": 1
+  },
+  "coverImage": "https://cover.imglib.info/uploads/cover/chainsaw-man-2/cover/Gm9UeJU3bTpz_250x350.jpg",
+  "href": "https://mangalib.me/chainsaw-man-2"
+}
+```
+------
+`POST https://mangalib.me/api/list` - список тайтлов
+
+*Примечание: на сайте(ах) очень много фильтров, этот endpoint изпользуется почти везде, где требуется запросить несколько тайтлов(тайтлы переводчиков, каталог, тайтлы авторов и т.д.), поэтому будут указаны лишь базовые фильтры. <Как найти остальные?> - Очень просто! - Открываете нужную вам страничку и DevTools на ней, выбираете Network, ставите пункт Fetch/XHR и меняете фильтр на сайте(см. картинку) на нужный вам, смотрите в запросы и находите запрос list, тыкаете на него, вкладка Payload.*
+
+![картинка1](https://user-images.githubusercontent.com/97462968/223760616-e9aba766-7f13-42fe-b748-7595851c2e87.png)
+
+```
+// Фильтры с главной RanobeLib
+{
+  "sort": "rate",
+  "dir": "desc",
+  "page": 1,
+  "types": [
+    "10"
+  ],
+  "site_id": "3",
+  "type": "manga",
+  "caution_list": [
+    "Отсутствует",
+    "16+",
+    "18+"
+  ]
+}
+
+```
+------
+`GET https://mangalib.me/similar/id` - похожие по id
+
+```
+{
+  "items": [
+    {
+      "id": 7276,
+      "slug": "zettai-junshukyousei-kozukuri-kyokashou-anime",
+      "name": "Zettai Junshu☆Kyousei Kozukuri Kyokashou!!",
+      "rus_name": "Абсолютная покорность: Секс по лицензии",
+      "eng_name": null,
+      "cover": "1568f96a-45cf-4eae-9f6f-1fd33f24be3a",
+      "type_id": 20,
+      "status_id": 7,
+      "anime_status_id": 2,
+      "type_text": "",
+      "status_text": "",
+      "userVote": null,
+      "subtitle": "Схож по жанрам",
+      "title": {
+        "id": 7276,
+        "slug": "zettai-junshukyousei-kozukuri-kyokashou-anime",
+        "name": "Zettai Junshu☆Kyousei Kozukuri Kyokashou!!",
+        "rus_name": "Абсолютная покорность: Секс по лицензии",
+        "eng_name": null,
+        "cover": "1568f96a-45cf-4eae-9f6f-1fd33f24be3a",
+        "type_id": 20,
+        "status_id": 7,
+        "anime_status_id": 2,
+        "type_text": "",
+        "status_text": "",
+        "userVote": null,
+        "subtitle": "Схож по жанрам",
+        "covers": {
+          "default": "https://animelib.me/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a.jpg",
+          "thumbnail": "/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a_thumb.jpg"
+        },
+        "coverImage": "https://animelib.me/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a.jpg",
+        "coverImageThumbnail": "/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a_thumb.jpg",
+        "href": "https://mangalib.me/anime/7276-zettai-junshukyousei-kozukuri-kyokashou-anime",
+        "title_status_id": 2
+      },
+      "covers": {
+        "default": "https://animelib.me/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a.jpg",
+        "thumbnail": "/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a_thumb.jpg"
+      },
+      "coverImage": "https://animelib.me/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a.jpg",
+      "coverImageThumbnail": "/uploads/anime/7276/cover/1568f96a-45cf-4eae-9f6f-1fd33f24be3a_thumb.jpg",
+      "href": "https://mangalib.me/anime/7276-zettai-junshukyousei-kozukuri-kyokashou-anime",
+      "title_status_id": 2
+    },
+    ...
+  ]
+}
 ```
