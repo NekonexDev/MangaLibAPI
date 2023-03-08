@@ -48,7 +48,7 @@
 ]
 ```
 ------
-`https://lib.social/api/forum/discussion/id` - получение информации о треде
+`GET https://lib.social/api/forum/discussion/id` - получение информации о треде
 
 ```
 {
@@ -93,7 +93,7 @@
 }
 ```
 ------
-`https://lib.social/api/forum/posts?page=1&discussion_id=id` - посты в треде
+`GET https://lib.social/api/forum/posts?page=1&discussion_id=id` - посты в треде
 
 *Примечание: да-да сайт публично показывает платформу с которой вы комментируете*
 
