@@ -9,7 +9,7 @@
 
 `BTC: bc1qvp97952xdkmph94zyhp6yulvwpjwyesz365nq9`
 
-## Изпользование
+## Использование
 *Запросы вы можете отправлять только по http2, иначе их заблокирует cloudflare.* 
 
 Поддержка http2 имеется:
@@ -48,6 +48,17 @@ site_id
 *В итоге: Нам кидают ответ, берете location хедер и все, задача онли почистить и токен у вас*
 
 ### Форум
+
+`POST https://lib.social/api/forum/discussion/id/action` - действия с тредом
+
+**Требуется авторизация!**
+
+```
+// Закрыть тред
+{
+    actionType: locked
+}
+```
 
 `GET https://lib.social/api/faq/questions` - Вопросы
 
