@@ -49,7 +49,8 @@ site_id
 
 ### Форум
 
-`POST https://lib.social/api/forum/discussion/id/action` - действия с тредом
+#### Действия с тредом
+`POST https://lib.social/api/forum/discussion/id/action`
 
 **Требуется авторизация!**
 
@@ -59,8 +60,11 @@ site_id
     actionType: locked
 }
 ```
+------
+#### ЧаВо
 
-`GET https://lib.social/api/faq/questions` - Вопросы
+
+`GET https://lib.social/api/faq/questions`
 
 ```
 [
@@ -83,7 +87,9 @@ site_id
 ]
 ```
 ------
-`GET https://lib.social/api/forum/discussion/id` - получение информации о треде
+#### Получение информации о треде
+
+`GET https://lib.social/api/forum/discussion/id`
 
 ```
 {
@@ -128,7 +134,9 @@ site_id
 }
 ```
 ------
-`GET https://lib.social/api/forum/posts?page=1&discussion_id=id` - посты в треде
+#### Посты в треде
+
+`GET https://lib.social/api/forum/posts?page=1&discussion_id=id`
 
 *Примечание: да-да сайт публично показывает платформу с которой вы комментируете*
 
@@ -173,7 +181,9 @@ site_id
 }
 ```
 ------
-`POST https://lib.social/api/forum/posts` - новый пост
+#### Новый пост
+
+`POST https://lib.social/api/forum/posts`
 
 **Требуется авторизация!**
 
@@ -190,7 +200,9 @@ site_id
 }
 ```
 ------
-`POST https://lib.social/api/forum/discussion` - новый тред
+#### Новый тред
+
+`POST https://lib.social/api/forum/discussion`
 
 **Требуется авторизация!**
 
@@ -212,7 +224,10 @@ site_id
 ```
 
 ### Пользователи
-`GET https://mangalib.me/search?type=user&q=username` - поиск по нику
+
+#### Поиск по нику
+
+`GET https://mangalib.me/search?type=user&q=username`
 
 ```
 [
@@ -224,12 +239,18 @@ site_id
 ]
 ```
 ------
-`GET https://mangalib.me/uploads/users/{userid}/{avatar_pic_id}.jpg` - аватарка
+#### Аватарка
+
+`GET https://mangalib.me/uploads/users/{userid}/{avatar_pic_id}.jpg`
+
 
 `Возвращает аватарку`
 
 ### Контент сайта
-`GET https://mangalib.me/search?type=manga&q=titlename` - поиск по названию
+
+#### Поиск по названию
+
+`GET https://mangalib.me/search?type=manga&q=titlename`
 
 *Примечание: если вам требуется найти ранобэ/аниме просто замените домен, не меняя параметр type. Такой вот костыль.*
 
@@ -320,7 +341,9 @@ site_id
 ]
 ```
 ------
-`GET https://mangalib.me/manga-short-info?id=55901&slug=chainsaw-man-2` - получение информации по id/slug
+#### Получение информации по id/slug
+
+`GET https://mangalib.me/manga-short-info?id=55901&slug=chainsaw-man-2`
 
 *Примечание: вы можете добавить параметр type, если знаете тип материала.*
 
@@ -411,7 +434,9 @@ Type может быть:
 }
 ```
 ------
-`POST https://mangalib.me/api/list` - список тайтлов
+#### Список тайтлов
+
+`POST https://mangalib.me/api/list`
 
 *Примечание: на сайте(ах) очень много фильтров, этот endpoint изпользуется почти везде, где требуется запросить несколько тайтлов(тайтлы переводчиков, каталог, тайтлы авторов и т.д.), поэтому будут указаны лишь базовые фильтры. <Как найти остальные?> - Очень просто! - Открываете нужную вам страничку и DevTools на ней, выбираете Network, ставите пункт Fetch/XHR и меняете фильтр на сайте(см. картинку) на нужный вам, смотрите в запросы и находите запрос list, тыкаете на него, вкладка Payload.*
 
@@ -437,7 +462,9 @@ Type может быть:
 
 ```
 ------
-`GET https://mangalib.me/similar/id` - похожие по id
+#### Похожие по id
+
+`GET https://mangalib.me/similar/id`
 
 ```
 {
